@@ -47,13 +47,9 @@ def load_dataset(dataset_name, mode='train', sample_limit=None):
     return imgs, lbls, time.time()-start, cmap
 
 def get_batches(imgs, lbls, b_sz):
-    """
-    Groups the loaded images and labels into small batches 
-    to be processed by the model.
-    """
     data = list(zip(imgs, lbls))
-    random.shuffle(data) # Important for training stability
+    random.shuffle(data)
     for i in range(0, len(data), b_sz):
-        batch = data[i:i+b_sz]
-        # Separate the images and labels back into two lists
-        yield [x[0] for x in b], [x[1] for x in b]
+        batch = data[i:i+b_sz] # You named it 'batch' here...
+        # ...so you must use 'batch' here too:
+        yield [x[0] for x in batch], [x[1] for x in batch]
